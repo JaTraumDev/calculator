@@ -86,10 +86,6 @@ let calc = {
                 this.operator = "";
                 this.right = "";
             }
-
-            if (this.left === Number.isNaN) {
-                this.left = "Nice try";
-            }
         }
 
         if (Number.isNaN(this.left)) {
