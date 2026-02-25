@@ -18,6 +18,12 @@ const divide = function (a, b) {
     }
 };
 
+const clear = function () {
+    calc.left = "";
+    calc.operator = null;
+    calc.right = null;
+};
+
 let calc = {
     left: "",
     operator: null,
