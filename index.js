@@ -38,53 +38,53 @@ const clear = function () {
     operate.right = "";
 };
 
-function setOperator(e) {
-    if (e.key === "*") {
+function setOperator(key) {
+    if (key === "*") {
         operate.operator = "x";
-    } else if (e.key === "/") {
+    } else if (key === "/") {
         operate.operator = "÷";
     } else {
-        operate.operator = e.key;
+        operate.operator = key;
     }
 }
 
-function setCalcInput(e) {
+function setCalcInput(key) {
     /**
      * Handles a keydown event to update the calculator state.
      * If the key is a digit, it appends to the left or right operand.
      * If the key is an operator, it sets the operator and clears the right operand.
      * If the key is the backspace key, it removes the last character of the right operand.
      * If the key is the enter key, it calculates the result.
-     * @param {KeyboardEvent} e - The keydown event.
+     * @param {KeyboardEvent} key - The keydown event.
      */
 
     const operators = ["+", "-", "*", "/", "x"];
 
-    if (e.key >= "0" && e.key <= "9") {
+    if (key >= "0" && key <= "9") {
         if (!operate.operator) {
             if (hasCalculated === true) {
                 clear();
                 hasCalculated = false;
             }
-            operate.left += e.key;
+            operate.left += key;
         } else {
-            operate.right += e.key;
+            operate.right += key;
         }
-    } else if (e.key === "-" && !operate.left) {
+    } else if (key === "-" && !operate.left) {
         operate.left += "-";
-    } else if (operators.includes(e.key) && !operate.right) {
-        setOperator(e);
-    } else if (operators.includes(e.key) && operate.right) {
+    } else if (operators.includes(key) && !operate.right) {
+        setOperator(key);
+    } else if (operators.includes(key) && operate.right) {
         operate.calculate();
-        setOperator(e);
-    } else if (e.key === "Backspace") {
+        setOperator(key);
+    } else if (key === "Backspace") {
         if (hasCalculated === true && !operate.operator) {
             clear();
             hasCalculated = false;
         } else {
             handleBackSpace();
         }
-    } else if (e.key === "Enter" || e.key === "=") {
+    } else if (key === "Enter" || key === "=") {
         operate.calculate();
     }
 
@@ -140,7 +140,7 @@ let operate = {
 };
 
 document.addEventListener("keydown", (e) => {
-    setCalcInput(e);
+    setCalcInput(e.key);
 });
 
 let hasCalculated = false;
