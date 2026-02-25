@@ -18,37 +18,80 @@ const divide = function (a, b) {
     }
 };
 
-function setCalculationInput() {
-    calculation.textContent = `${calc.left} ${calc.operator} ${calc.right}`;
+function updateCalcUI() {
+    calculation.textContent = `${operate.left} ${operate.operator} ${operate.right}`;
 }
 
 function handleBackSpace() {
-    if (calc.right) {
-        calc.right = calc.right.slice(0, -1);
-    } else if (calc.operator) {
-        calc.operator = "";
-    } else if (calc.left) {
-        calc.left = calc.left.slice(0, -1);
+    if (operate.right) {
+        operate.right = operate.right.slice(0, -1);
+    } else if (operate.operator) {
+        operate.operator = "";
+    } else if (operate.left) {
+        operate.left = operate.left.slice(0, -1);
     }
 }
 
 const clear = function () {
-    calc.left = "";
-    calc.operator = "";
-    calc.right = "";
+    operate.left = "";
+    operate.operator = "";
+    operate.right = "";
 };
 
 function setOperator(e) {
     if (e.key === "*") {
-        calc.operator = "x";
+        operate.operator = "x";
     } else if (e.key === "/") {
-        calc.operator = "÷";
+        operate.operator = "÷";
     } else {
-        calc.operator = e.key;
+        operate.operator = e.key;
     }
 }
 
-let calc = {
+function setCalcInput(e) {
+    /**
+     * Handles a keydown event to update the calculator state.
+     * If the key is a digit, it appends to the left or right operand.
+     * If the key is an operator, it sets the operator and clears the right operand.
+     * If the key is the backspace key, it removes the last character of the right operand.
+     * If the key is the enter key, it calculates the result.
+     * @param {KeyboardEvent} e - The keydown event.
+     */
+
+    const operators = ["+", "-", "*", "/", "x"];
+
+    if (e.key >= "0" && e.key <= "9") {
+        if (!operate.operator) {
+            if (hasCalculated === true) {
+                clear();
+                hasCalculated = false;
+            }
+            operate.left += e.key;
+        } else {
+            operate.right += e.key;
+        }
+    } else if (e.key === "-" && !operate.left) {
+        operate.left += "-";
+    } else if (operators.includes(e.key) && !operate.right) {
+        setOperator(e);
+    } else if (operators.includes(e.key) && operate.right) {
+        operate.calculate();
+        setOperator(e);
+    } else if (e.key === "Backspace") {
+        if (hasCalculated === true) {
+            clear();
+            hasCalculated = false;
+        } else {
+            handleBackSpace();
+        }
+    } else if (e.key === "Enter" || e.key === "=") {
+        operate.calculate();
+    }
+
+    updateCalcUI();
+}
+
+let operate = {
     left: "",
     operator: "",
     right: "",
@@ -92,42 +135,12 @@ let calc = {
             this.left = "Nice try";
         }
 
-        setCalculationInput();
+        updateCalcUI();
     },
 };
 
 document.addEventListener("keydown", (e) => {
-    const operators = ["+", "-", "*", "/", "x"];
-
-    if (e.key >= "0" && e.key <= "9") {
-        if (!calc.operator) {
-            if (hasCalculated === true) {
-                clear();
-                hasCalculated = false;
-            }
-            calc.left += e.key;
-        } else {
-            calc.right += e.key;
-        }
-    } else if (e.key === "-" && !calc.left) {
-        calc.left += "-";
-    } else if (operators.includes(e.key) && !calc.right) {
-        setOperator(e);
-    } else if (operators.includes(e.key) && calc.right) {
-        calc.calculate();
-        setOperator(e);
-    } else if (e.key === "Backspace") {
-        if (hasCalculated === true) {
-            clear();
-            hasCalculated = false;
-        } else {
-            handleBackSpace();
-        }
-    } else if (e.key === "Enter" || e.key === "=") {
-        calc.calculate();
-    }
-
-    setCalculationInput();
+    setCalcInput(e);
 });
 
 let hasCalculated = false;
