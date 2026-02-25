@@ -78,7 +78,7 @@ function setCalcInput(e) {
         operate.calculate();
         setOperator(e);
     } else if (e.key === "Backspace") {
-        if (hasCalculated === true) {
+        if (hasCalculated === true && !operate.operator) {
             clear();
             hasCalculated = false;
         } else {
