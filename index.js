@@ -12,7 +12,7 @@ const multiply = function (a, b) {
 
 const divide = function (a, b) {
     if (b === 0) {
-        calculation.textContent = "ERROR";
+        return "Nice try";
     } else {
         return (a / b).toFixed(2);
     }
@@ -57,6 +57,17 @@ let calc = {
         if (this.left && !this.right) {
             this.operator = "";
             hasCalculated = false;
+        } else if (!this.left) {
+            if (this.operator === "-") {
+                this.left += this.operator;
+                this.left += this.right;
+                this.operator = "";
+                this.right = "";
+            } else {
+                this.left += this.right;
+                this.operator = "";
+                this.right = "";
+            }
         } else {
             if (this.operator === "+") {
                 this.left = add(parseFloat(this.left), parseFloat(this.right));
@@ -86,7 +97,7 @@ document.addEventListener("keydown", (e) => {
 
     if (e.key >= "0" && e.key <= "9") {
         if (!calc.operator) {
-            if (hasCalculated === true && !operators.includes(e.key)) {
+            if (hasCalculated === true) {
                 clear();
                 hasCalculated = false;
             }
@@ -94,13 +105,20 @@ document.addEventListener("keydown", (e) => {
         } else {
             calc.right += e.key;
         }
+    } else if (e.key === "-" && !calc.left) {
+        calc.left += "-";
     } else if (operators.includes(e.key) && !calc.right) {
         setOperator(e);
     } else if (operators.includes(e.key) && calc.right) {
         calc.calculate();
         setOperator(e);
     } else if (e.key === "Backspace") {
-        handleBackSpace();
+        if (hasCalculated === true) {
+            clear();
+            hasCalculated = false;
+        } else {
+            handleBackSpace();
+        }
     } else if (e.key === "Enter" || e.key === "=") {
         calc.calculate();
     }
