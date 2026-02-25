@@ -19,13 +19,17 @@ const divide = function (a, b) {
 };
 
 const clear = function () {
-    calc.left = "";
+    calc.left = null;
     calc.operator = null;
     calc.right = null;
 };
 
 let calc = {
-    left: "",
+    left: null,
     operator: null,
     right: null,
 };
+
+const calculation = document.querySelector("#calculation");
+
+calculation.textContent = `${calc.left} ${calc.operator} ${calc.right}`;
