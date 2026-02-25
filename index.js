@@ -17,3 +17,9 @@ const divide = function (a, b) {
         return a / b;
     }
 };
+
+let calc = {
+    left: "",
+    operator: null,
+    right: null,
+};
