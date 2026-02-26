@@ -44,6 +44,7 @@ const clear = function () {
     operate.left = "";
     operate.operator = "";
     operate.right = "";
+    updateCalcUI();
 };
 
 function setOperator(key) {
@@ -57,7 +58,7 @@ function setOperator(key) {
 }
 
 function setCalcInput(key) {
-    const operators = ["+", "-", "*", "/", "x"];
+    const operators = ["+", "-", "*", "/", "x", "÷"];
 
     if (key >= "0" && key <= "9") {
         if (!operate.operator) {
@@ -155,10 +156,20 @@ document.addEventListener("keydown", (e) => {
     setCalcInput(e.key);
 });
 
+const buttons = document.querySelectorAll("button");
+
+buttons.forEach((button) => {
+    if (button.innerText === "CE") {
+        button.addEventListener("click", () => {
+            clear();
+        });
+    } else {
+        button.addEventListener("click", () => {
+            setCalcInput(button.innerText);
+        });
+    }
+});
+
 let hasCalculated = false;
-
-const equals = document.querySelector("#equals");
-
-equals.addEventListener("click", () => {});
 
 const calculation = document.querySelector("#calculation");
