@@ -102,13 +102,13 @@ let operate = {
     right: "",
     calculate() {
         hasCalculated = true;
+
         if (this.left && !this.right) {
             this.operator = "";
             hasCalculated = false;
         } else if (!this.left) {
             if (this.operator === "-") {
-                this.left += this.operator;
-                this.left += this.right;
+                this.left = `${this.operator}${this.right}`;
                 this.operator = "";
                 this.right = "";
             } else {
@@ -117,26 +117,25 @@ let operate = {
                 this.right = "";
             }
         } else {
-            if (this.operator === "+") {
-                this.left = add(parseFloat(this.left), parseFloat(this.right)).toString();
-                this.operator = "";
-                this.right = "";
-            } else if (this.operator === "-") {
-                this.left = subtract(parseFloat(this.left), parseFloat(this.right)).toString();
-                this.operator = "";
-                this.right = "";
-            } else if (this.operator === "÷") {
-                this.left = divide(parseFloat(this.left), parseFloat(this.right)).toString();
-                this.operator = "";
-                this.right = "";
-            } else if (this.operator === "x") {
-                this.left = multiply(parseFloat(this.left), parseFloat(this.right)).toString();
-                this.operator = "";
-                this.right = "";
+            switch (this.operator) {
+                case "+":
+                    this.left = add(parseFloat(this.left), parseFloat(this.right)).toString();
+                    break;
+                case "-":
+                    this.left = subtract(parseFloat(this.left), parseFloat(this.right)).toString();
+                    break;
+                case "÷":
+                    this.left = divide(parseFloat(this.left), parseFloat(this.right)).toString();
+                    break;
+                case "x":
+                    this.left = multiply(parseFloat(this.left), parseFloat(this.right)).toString();
+                    break;
             }
+            this.operator = "";
+            this.right = "";
         }
 
-        if (Number.isNaN(this.left)) {
+        if (Number.isNaN(parseFloat(this.left))) {
             this.left = "Nice try";
         }
 
