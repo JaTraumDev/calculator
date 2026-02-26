@@ -44,6 +44,7 @@ const clear = function () {
     operate.left = "";
     operate.operator = "";
     operate.right = "";
+
     updateCalcUI();
 };
 
@@ -106,7 +107,7 @@ function setCalcInput(key) {
 }
 
 let operate = {
-    left: "",
+    left: "0",
     operator: "",
     right: "",
     calculate() {
@@ -162,6 +163,7 @@ buttons.forEach((button) => {
     if (button.innerText === "CE") {
         button.addEventListener("click", () => {
             clear();
+            hasCalculated = true;
         });
     } else {
         button.addEventListener("click", () => {
@@ -170,6 +172,15 @@ buttons.forEach((button) => {
     }
 });
 
-let hasCalculated = false;
+let hasCalculated = true;
 
 const calculation = document.querySelector("#calculation");
+
+if (operate.left.length > 13 || operate.right.length > 13) {
+    clear();
+    operate.left = "infinite";
+
+    hasCalculated = true;
+}
+
+updateCalcUI();

@@ -4,6 +4,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
     background-color: beige;
     height: 100vh;
 }
@@ -13,9 +14,85 @@ body * {
     font-size: 3rem;
 }
 
+button {
+    border-style: none;
+    border-radius: 8px;
+    padding: 4px;
+}
+
+h1 {
+    margin-bottom: 0;
+}
+
+footer {
+    font-size: 1rem;
+    font-style: italic;
+}
+
 #calculator-container {
     background-color: white;
-    width: 1024px;
-    padding: 10px;
-    border-radius: 4px;
+    width: 720px;
+    padding: 40px;
+    margin: 24px;
+    border-radius: 12px;
+    box-shadow: 0px 0px 24px #00000038;
+}
+
+#calculation {
+    background-color: rgb(234, 234, 234);
+    font-size: 2.4rem;
+    margin-bottom: 20px;
+    height: 50px;
+    padding-inline: 1rem;
+    border-radius: 8px;
+    min-height: 5rem;
+
+    display: flex;
+    flex: 1;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+#button-container {
+    display: flex;
+    flex-direction: column;
+    height: 400px;
+    align-items: space-around;
+    gap: 12px;
+}
+
+#button-container * {
+    flex: 1;
+}
+
+#equals,
+.operator {
+    background-color: rgb(85, 150, 255);
+    color: white;
+}
+
+#equals:hover,
+.operator:hover {
+    background-color: rgb(51, 122, 236);
+}
+
+#zero,
+#equals {
+    flex: 2;
+}
+
+#delete,
+#clear {
+    background-color: rgb(255, 56, 66);
+    color: white;
+}
+
+#delete:hover,
+#clear:hover {
+    background-color: rgb(195, 42, 50);
+}
+
+.row {
+    display: flex;
+    gap: 12px;
 }
