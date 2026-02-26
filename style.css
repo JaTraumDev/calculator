@@ -1,9 +1,21 @@
 @import url("https://fonts.googleapis.com/css2?family=Google+Sans+Code:ital,wght@0,300..800;1,300..800&display=swap");
 
 body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background-color: beige;
+    height: 100vh;
 }
 
 body * {
     font-family: "Google Sans Code", Arial, Helvetica, sans-serif;
+    font-size: 3rem;
+}
+
+#calculator-container {
+    background-color: white;
+    width: 1024px;
+    padding: 10px;
+    border-radius: 4px;
 }
