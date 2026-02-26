@@ -1,20 +1,28 @@
 const add = function (a, b) {
-    return a + b;
+    const result = a + b;
+
+    return result % 1 === 0 ? result : result.toFixed(2);
 };
 
 const subtract = function (a, b) {
-    return a - b;
+    const result = a - b;
+
+    return result % 1 === 0 ? result : result.toFixed(2);
 };
 
 const multiply = function (a, b) {
-    return a * b;
+    const result = a * b;
+
+    return result % 1 === 0 ? result : result.toFixed(2);
 };
 
 const divide = function (a, b) {
     if (b === 0) {
         return "Nice try";
     } else {
-        return (a / b).toFixed(2);
+        const result = a / b;
+
+        return result % 1 === 0 ? result : result.toFixed(2);
     }
 };
 
