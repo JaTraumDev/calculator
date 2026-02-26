@@ -24,7 +24,8 @@ h1 {
     margin-bottom: 0;
 }
 
-footer {
+footer,
+a {
     font-size: 1rem;
     font-style: italic;
 }
@@ -33,7 +34,7 @@ footer {
     background-color: white;
     width: 720px;
     padding: 40px;
-    margin: 24px;
+    margin: 48px;
     border-radius: 12px;
     box-shadow: 0px 0px 24px #00000038;
 }
