@@ -49,15 +49,6 @@ function setOperator(key) {
 }
 
 function setCalcInput(key) {
-    /**
-     * Handles a keydown event to update the calculator state.
-     * If the key is a digit, it appends to the left or right operand.
-     * If the key is an operator, it sets the operator and clears the right operand.
-     * If the key is the backspace key, it removes the last character of the right operand.
-     * If the key is the enter key, it calculates the result.
-     * @param {KeyboardEvent} key - The keydown event.
-     */
-
     const operators = ["+", "-", "*", "/", "x"];
 
     if (key >= "0" && key <= "9") {
@@ -69,6 +60,20 @@ function setCalcInput(key) {
             operate.left += key;
         } else {
             operate.right += key;
+        }
+    } else if (key === "." || key === ",") {
+        if (hasCalculated === true && !operate.operator) {
+            clear();
+            hasCalculated = false;
+        }
+        if (!operate.left && !operate.operator) {
+            operate.left += "0.";
+        } else if (!operate.right && operate.operator) {
+            operate.right += "0.";
+        } else if (!operate.left.includes(".") && !operate.operator) {
+            operate.left += ".";
+        } else if (!operate.right.includes(".") && operate.operator) {
+            operate.right += ".";
         }
     } else if (key === "-" && !operate.left) {
         operate.left += "-";
@@ -113,19 +118,19 @@ let operate = {
             }
         } else {
             if (this.operator === "+") {
-                this.left = add(parseFloat(this.left), parseFloat(this.right));
+                this.left = add(parseFloat(this.left), parseFloat(this.right)).toString();
                 this.operator = "";
                 this.right = "";
             } else if (this.operator === "-") {
-                this.left = subtract(parseFloat(this.left), parseFloat(this.right));
+                this.left = subtract(parseFloat(this.left), parseFloat(this.right)).toString();
                 this.operator = "";
                 this.right = "";
             } else if (this.operator === "÷") {
-                this.left = divide(parseFloat(this.left), parseFloat(this.right));
+                this.left = divide(parseFloat(this.left), parseFloat(this.right)).toString();
                 this.operator = "";
                 this.right = "";
             } else if (this.operator === "x") {
-                this.left = multiply(parseFloat(this.left), parseFloat(this.right));
+                this.left = multiply(parseFloat(this.left), parseFloat(this.right)).toString();
                 this.operator = "";
                 this.right = "";
             }
