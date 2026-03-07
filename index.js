@@ -21,13 +21,12 @@ const divide = function (a, b) {
         return "Nice try";
     } else {
         const result = a / b;
-
         return result % 1 === 0 ? result : result.toFixed(2);
     }
 };
 
 function updateCalcUI() {
-    calculation.textContent = `${operate.left} ${operate.operator} ${operate.right}`;
+    calculation.textContent = `${operate.left}${operate.operator}${operate.right}`;
 }
 
 function handleBackSpace() {
